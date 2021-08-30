@@ -9,7 +9,7 @@ def home(request):
     return render(request, "home.html")
 
 
-def say_hello(request):
+def liveStocks(request):
     inducators = ["open",
       "change",
       "close",
@@ -29,5 +29,6 @@ def say_hello(request):
     if(data["change"]>0):
         data["colorChange"] = "green"
 
+    data["name"] = data["name"].upper()
 
     return render(request , 'liveStocks.html', data)
