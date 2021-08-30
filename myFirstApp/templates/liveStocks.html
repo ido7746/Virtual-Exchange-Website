@@ -1,0 +1,37 @@
+<script type="text/javascript">
+  window.setTimeout(function () {
+  window.location.reload();
+}, 5000);
+</script>
+
+
+
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <title>HTML Table Header</title>
+   </head>
+	
+   <body>
+      <table border = "1">
+         <tr>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>change</th>
+         </tr>
+         <tr>
+            <td>{{ name }}</td>
+            <td>{{ curr }}</td>
+            <td style = "color:{{ colorChange }}";> {{ change }}%</td>
+         </tr>
+         
+         <tr>
+            <td>Shabbir Hussein</td>
+            <td>1000000</td>
+         </tr>
+      </table>
+   </body>
+   
+</html>
+
