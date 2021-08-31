@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,8 @@ SECRET_KEY = 'django-insecure-e3by*@!%x6kebfkd3ll*lll*$esw=ii)floje_d!bl&qphhu+=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.35']
+ALLOWED_HOSTS = ['192.168.1.35',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -38,7 +40,10 @@ INSTALLED_APPS = [
     'livereload',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myFirstApp'
+    'myFirstApp',
+
+    'users.apps.UsersConfig',#own
+     'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +131,12 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+    ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'home'
