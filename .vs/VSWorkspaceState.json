@@ -9,6 +9,6 @@
     "\\users\\templates",
     "\\users\\templates\\users"
   ],
-  "SelectedNode": "\\users\\views.py",
+  "SelectedNode": "\\users\\templates\\users\\home.html",
   "PreviewInSolutionExplorer": false
 }
