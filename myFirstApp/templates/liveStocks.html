@@ -3,35 +3,38 @@
   window.location.reload();
 }, 5000);
 </script>
-
-
-
+{% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html>
+{% block content %}
 
-   <head>
-      <title>HTML Table Header</title>
-   </head>
-	
-   <body>
-      <table border = "1">
-         <tr>
-            <th>Symbol</th>
-            <th>Last Price</th>
-            <th>% Change</th>
-         </tr>
-         <tr>
-            <td>{{ name }}</td>
-            <td>{{ curr }}</td>
-            <td style = "color:{{ colorChange }}";> {{ change }}%</td>
-         </tr>
-         
-         <tr>
-            <td>Shabbir Hussein</td>
-            <td>1000000</td>
-         </tr>
-      </table>
-   </body>
+       <head>
+          <title>My Stocks LIVE!</title>
+       </head>
+	    {% if stocks %}
+           <body>
+              <table ALIGN="CENTER" style = "font-size:40px ;color : black; background-color: white">
+                 <tr ALIGN="CENTER">
+                    <th>Symbol</th>
+                    <th>Last Price</th>
+                    <th>% Change</th>
+                 </tr>
+                 {% for stock in stocks %}
+                 <tr ALIGN="CENTER" height="50">
+                    <td >{{ stock.symbol }}</td>
+                    <td>{{ stock.close }}</td>
+                    <td style = "color:{{ stock.colorChange }}";> {{ stock.change }}%</td>
+                 </tr>
+                 {% endfor %}
+              </table>
+           </body>
+       {% else %}
+        <h1 ALIGN="CENTER"> empty list of stock </h1>
+       {% endif %}
+    
+{% endblock content %}
+
    
 </html>
 

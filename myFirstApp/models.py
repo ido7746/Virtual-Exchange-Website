@@ -1,8 +1,17 @@
 from django.db import models
-
 import requests, json, warnings, time
+from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
 
+class Stock(models.Model):
+    symbol = models.CharField(max_length=10)
+    screener = models.CharField(max_length=10)
+    exchange = models.CharField(max_length=10)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.symbol
 
 
 def data1(symbols, interval, indicators):
@@ -73,33 +82,7 @@ def get_data(symbol, screener, exchange, indicators, interval):
     for indicatoe in indicators:
         data[indicatoe] = result[0]['d'][i]
         i+=1
-    data["curr"] = data["open"]*(100+data["change"])/100
-    data["name"] = symbol
+
+    data["symbol"] = symbol.upper()
 
     return data
-
-def start():
-    inducators = ["open",
-      "change",
-      "close",
-      "high",
-      "low",
-      "volume"]
-    data = []
-
-    stocks = [("FTAL", "israel", "TASE", inducators, "1d"),
-              ("AZRG", "israel", "TASE", inducators, "1d"),
-              ("btcusd", "crypto", "bitstamp", inducators, "1d")]
-
-
-    while True:
-        for stock in stocks:
-            data = get_data(stock[0],stock[1],stock[2],stock[3],stock[4])
-            if data !={}:
-                print(stock[0],">>>"
-
-                      , data["curr"] )
-        #time.sleep(1)
-
-
-# Create your models here.
