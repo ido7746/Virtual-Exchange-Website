@@ -2,13 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\myFirstApp",
-    "\\stotefront",
     "\\users",
-    "\\users\\static",
-    "\\users\\static\\users",
     "\\users\\templates",
     "\\users\\templates\\users"
   ],
-  "SelectedNode": "\\users\\templates\\users\\home.html",
+  "SelectedNode": "\\users\\views.py",
   "PreviewInSolutionExplorer": false
 }

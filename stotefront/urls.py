@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myFirstApp.urls')),
     path('', include('users.urls')),
+    path('', include('virtualMarket.urls')),
 ]

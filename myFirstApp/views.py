@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from myFirstApp.models import get_data
+from myFirstApp.stocks import get_data
 import time
 from .models import Stock
 from django.contrib.auth.models import User
-
-
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 
 def search(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You most to login first!')
+        return redirect('login/')
+
     if not 'symbol' in request.GET:
         return render(request, "home.html")
     stock = Stock(symbol = str(request.GET['symbol']).upper(),
@@ -27,6 +31,10 @@ def search(request):
 
 
 def liveStocks(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You most to login first!')
+        return redirect('login/')
+
     inducators = ["open",
       "change",
       "close",

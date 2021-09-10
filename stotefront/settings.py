@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myFirstApp',
-
-    'users.apps.UsersConfig',#own
+    'virtualMarket',
+    'users.apps.UsersConfig',
      'crispy_forms',
 ]
 
