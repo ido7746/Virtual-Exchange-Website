@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from myFirstApp.stocks import get_data
 import time
 from .models import Stock
+from .models import FollowStocks
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -16,15 +17,25 @@ def search(request):
 
     if not 'symbol' in request.GET:
         return render(request, "home.html")
+
+    followLS = FollowStocks.objects.filter(author = request.user)
+    if not followLS:
+        followLS = FollowStocks(author = request.user)
+        followLS.save()
+    else:
+        followLS=followLS[0]
+
     stock = Stock(symbol = str(request.GET['symbol']).upper(),
     screener = str(request.GET['contry']).lower(),
-    exchange = str(request.GET['exchange']).lower(),
-    author = request.user )
-    stocks = Stock.objects.filter(author = request.user)
+    exchange = str(request.GET['exchange']).lower(),)
+
+
+    stocks = followLS.getList()
     for s1 in stocks:
-        if s1.symbol==stock.symbol and s1.screener == stock.screener and s1.exchange == stock.exchange:
+        if s1["symbol"]==stock.symbol and s1["screener"] == stock.screener and s1["exchange"] == stock.exchange:
             return render(request, "home.html")
-    stock.save()
+
+    followLS.addToList(stock)
     return render(request, "home.html")
 
 
@@ -42,16 +53,21 @@ def liveStocks(request):
       "low",
       "volume"]
 
-    stocks = Stock.objects.filter(author = request.user)
+    followLS = FollowStocks.objects.filter(author = request.user)
+    if not followLS:
+        messages.info(request, 'You most to add stocks first!')
+        return redirect('search')
+    else:
+        followLS=followLS[0]
 
-    
-    
+    stocks = followLS.getList()
+
     ls = []
 
     for stock in stocks:
-        symbol = stock.symbol
-        contry = stock.screener
-        exchange = stock.exchange
+        symbol = stock["symbol"]
+        contry = stock["screener"]
+        exchange = stock["exchange"]
         data = get_data(symbol, contry, exchange, inducators, "1d")
         if data != {}:
             if(data["change"]<0):

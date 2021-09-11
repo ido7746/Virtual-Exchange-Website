@@ -5,6 +5,28 @@ from django.contrib.auth.models import User
 import json
 from myFirstApp.stocks import get_data
 import datetime
+from myFirstApp.models import Stock
+
+
+
+class StockTrade(Stock):
+    buyPrice = models.FloatField()
+    amount = models.FloatField()
+    close = models.FloatField(default = -1)
+    changeProfit = models.FloatField(default = -1)
+    profit = models.FloatField(default = -1)
+    time = models.DateField(("Date"), default=datetime.datetime.now())
+
+    def toJson(self):
+        a = super().toJson()
+        a["buyPrice"] = self.buyPrice
+        a["amount"] = self.amount
+        a["close"] = self.close
+        a["changeProfit"] = self.changeProfit
+        a["profit"] = self.profit
+        a["time"] = str(self.time)
+        return a
+
 
 class StocksProtfolio(models.Model):
     sum = models.FloatField()
@@ -26,19 +48,14 @@ class StocksProtfolio(models.Model):
 
         self.sum-=price
 
+        newStock = StockTrade(symbol=symbol, screener=screener, exchange=exchange,
+                   amount=amount, buyPrice=price)
+
         ls = json.loads(self.listOfStock)
-        dic = {}
-        dic['symbol'] = symbol
-        dic['screener'] = screener
-        dic['exchange'] = exchange
-        dic['amount'] = amount
-        dic['price'] = price #summary original price
-        dic['close'] = -1
-        dic['changeProfit'] = -1
-        dic['profit'] = -1 
-        dic['time'] = str(datetime.datetime.now())
-        ls.append(dic)
+
+        ls.append(newStock.toJson)
         self.listOfStock = json.dumps(ls)
+
         self.refreshData()
 
 
@@ -48,8 +65,8 @@ class StocksProtfolio(models.Model):
         for stock in ls:
             data = get_data(stock['symbol'], stock['screener'], stock['exchange'], ["close"], '1d')
             if data != {}:
-                stock['profit'] = data['close']*stock['amount']-stock['price']
-                stock['changeProfit'] = ((data['close']*stock['amount'] - stock['price'])/stock['price'])*100
+                stock['profit'] = data['close']*stock['amount']-stock['buyPrice']
+                stock['changeProfit'] = ((data['close']*stock['amount'] - stock['buyPrice'])/stock['buyPrice'])*100
                 stock['close'] = data['close']
                 sum1+=stock['profit']
         self.sum+= sum1
