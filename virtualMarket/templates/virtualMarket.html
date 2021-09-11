@@ -8,7 +8,28 @@
 
 
 <h1>Welcam to the virtual market!</h1>
+{% if protfolios %}
+<h1 ALIGN="CENTER">You protfolio's</h1>
+            <body>
+              <table ALIGN="CENTER" style = "font-size:40px ;color : black; background-color: white">
+                 <tr ALIGN="CENTER">
+                    <th>name</th>
+                    <th>sum</th>
+                 </tr>
+                 {% for p in protfolios %}
+                 <tr ALIGN="CENTER" height="50">
+                    <td >{{ p.name }}</td>
+                    <td>{{ p.sum }}</td>
+                    <form action="protfolio" method = 'post'>
+                    {% csrf_token %}
+                    <input type="hidden" value={{ p.id }} name = "id">
+	                <td><input type="submit"  value="more"><td>
+                 </tr>
+                 {% endfor %}
+              </table>
+           </body>
 
+{% endif %}
 <a href="{% url 'createProtfolio' %}" class="btn" style="color: white; background-color: #fd5e14;"type="submit" id="header-links"> Create protfolio </a>
     
 {% endblock content %}

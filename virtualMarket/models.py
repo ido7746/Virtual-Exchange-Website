@@ -10,12 +10,12 @@ from myFirstApp.models import Stock
 
 
 class StockTrade(Stock):
-    buyPrice = models.FloatField()
+    buyPrice = models.FloatField(default=-1)
     amount = models.FloatField()
     close = models.FloatField(default = -1)
     changeProfit = models.FloatField(default = -1)
     profit = models.FloatField(default = -1)
-    time = models.DateField(("Date"), default=datetime.datetime.now())
+    time = models.DateField(("Date"), default=timezone.now)
 
     def toJson(self):
         a = super().toJson()
@@ -34,29 +34,31 @@ class StocksProtfolio(models.Model):
     listOfStock = models.CharField(max_length=2000000, default = '[]')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def addStock(self, symbol, screener, exchange, amount, price=-1):#amount: number of stocks to buy
-        if price==-1:
-            data = get_data(symbol, screener, exchange, ["close"], '1d')
-            if amount<=0 or data == {}:
+    def getStocksList(self):
+        return json.loads(self.listOfStock)
+
+    def addStock(self, stock):#amount: number of stocks to buy
+        if stock.buyPrice==-1:
+            data = get_data(stock.symbol, stock.screener, stock.exchange, ["close"], '1d')
+            if stock.amount<=0 or data == {}:
                 return
-            price = data['close']
+            stock.price = data['close']
 
-        price = price*amount
+        stock.buyPrice = stock.buyPrice*stock.amount
 
-        if price>self.sum:#dont have money for that
+        if stock.buyPrice>self.sum:#dont have money for that
             return
 
-        self.sum-=price
+        self.sum-=stock.buyPrice
 
-        newStock = StockTrade(symbol=symbol, screener=screener, exchange=exchange,
-                   amount=amount, buyPrice=price)
 
         ls = json.loads(self.listOfStock)
 
-        ls.append(newStock.toJson)
+        ls.append(stock.toJson())
         self.listOfStock = json.dumps(ls)
 
         self.refreshData()
+
 
 
     def refreshData(self):

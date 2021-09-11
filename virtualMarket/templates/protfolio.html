@@ -1,4 +1,3 @@
-
 </script>
 {% extends 'users/base.html' %}
 {% load static %}
@@ -6,11 +5,49 @@
 <html>
 {% block content %}
 
-<h1>protfolio!</h1>
-<h1>{{ name }}</h1>
-<h1>{{ sum }}</h1>
+       <head>
+          <title>{{ name }}</title>
+       </head>
+       <h1>{{ name }}</h1>
+       <h1>money = {{ sum }}</h1>
+       <h1>ID: {{ id }}</h1>
+	    {% if stocks %}
+           <body>
+              <table ALIGN="CENTER" style = "font-size:40px ;color : black; background-color: white">
+                 <tr ALIGN="CENTER">
+                    <th>Symbol</th>
+                    <th>Last Price</th>
+                    <th>% Change</th>
+                 </tr>
+                 {% for stock in stocks %}
+                 <tr ALIGN="CENTER" height="50">
+                    <td >{{ stock.symbol }}</td>
+                    <td>{{ stock.close }}</td>
+                    <td style = "color:{{ stock.colorChange }}";> {{ stock.change }} %</td>
+                 </tr>
+                 {% endfor %}
+              </table>
+           </body>
+       {% else %}
+        <h1 ALIGN="CENTER"> empty list of stock </h1>
+       {% endif %}
 
+       <form action="protfolio" method = 'post' >
+       
+	    <h1>Enter symbol : <input type="text" name = "symbol"><br></h1>
+	    <h1>Enter contry : <input type="text" name = "screener"><br></h1>
+	    <h1>Enter exchange : <input type="text" name = "exchange"><br></h1>
+        <h1>Enter amount : <input type="text" name = "amount"><br></h1>
+        <h1>Enter buyPrice : <input type="text" name = "buyPrice"><br></h1>
+        <input type="hidden" value={{ id }} name = "id">
+        {% csrf_token %}
+	    <input type="submit"  value="BUY" name="act" style="background-color:green">
+        <input type="submit"  value="SOLD" name="act" style="background-color:red">
+
+
+    
 {% endblock content %}
 
    
 </html>
+
