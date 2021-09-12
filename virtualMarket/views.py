@@ -11,10 +11,15 @@ def virtualMarket(request):
         messages.info(request, 'You most to login first!')
         return redirect('login/')
 
-    p = StocksProtfolio.objects.filter(author = request.user)
+    protfolios = StocksProtfolio.objects.filter(author = request.user)
+
+    for p in protfolios:
+        p.refreshData()
+
+    return render(request, "virtualMarket.html", {"protfolios" : protfolios})
 
 
-    return render(request, "virtualMarket.html", {"protfolios" : p})
+
 
 def createProtfolio(request):
     if not request.user.is_authenticated:
@@ -23,38 +28,48 @@ def createProtfolio(request):
 
     return render(request, 'createProtfolio.html')
 
+
+
 def protfolio(request):
     id = -2
     if not request.user.is_authenticated:
         messages.info(request, 'You most to login first!')
         return redirect('login/')
 
-    if "act" in request.POST:
-        if request.POST["act"]=="BUY":
-            buyStock(request)
-        if request.POST["act"]=="SOLD":
-            #soldStock(request)
-            pass
+    if "id" in request.POST:
+        id = request.POST["id"]
 
     if "name" in request.POST and "sum" in request.POST:
         id = newProtfolio(request)
         if id==-1:
             messages.info(request, 'The value most to be positive!')
             return redirect('createProtfolio')
-    elif "id" in request.POST:
-        id = request.POST["id"]
-
 
     protfolio = StocksProtfolio.objects.filter(id = id)
     if not protfolio:
         messages.info(request, 'You need to choise protfolio!')
         return redirect('virtualMarket')
     protfolio = protfolio[0]
+    if protfolio.author != request.user:
+        return redirect('virtualMarket')
 
+    if "act" in request.POST:
+        if request.POST["act"]=="BUY":
+            buyStock(request, protfolio)
+
+        if request.POST["act"]=="SOLD":
+            soldStock(request, protfolio)
+
+        if request.POST["act"]=="DELETE":
+            protfolio.delete()
+            return redirect('virtualMarket')
+    protfolio.refreshData()
     context = {}
     context["name"] = protfolio.name
     context["sum"] = protfolio.sum
     context["stocks"] = protfolio.getStocksList()
+    context["value"] = protfolio.value
+    context["changePer"] = protfolio.changePer
     context["id"] = id
 
 
@@ -74,7 +89,7 @@ def newProtfolio(request):
 
     return newPro.id
 
-def buyStock(request):
+def buyStock(request, protfolio):
     #check evreything ok
     buyPrice = -1
     if request.POST['buyPrice']!='':
@@ -85,12 +100,20 @@ def buyStock(request):
                    amount = int(request.POST["amount"]),
                    buyPrice = buyPrice
                    )
-    protfolio = StocksProtfolio.objects.filter(id = str(request.POST["id"]))
-    if not protfolio:
-        print("empty protfolio")
-        return
-    protfolio = protfolio[0]
-    protfolio.addStock(s)
+
+    if not protfolio.addStock(s):
+        messages.info(request, 'You need more money to buy this stock!')
     protfolio.save()
 
-
+def soldStock(request, protfolio):
+    soldPrice = -1
+    if request.POST['soldPrice']!='':
+        soldPrice = float(request.POST["soldPrice"])
+    s = StockTrade(symbol = str(request.POST["symbol"]),
+                   screener = str(request.POST["screener"]),
+                   exchange = str(request.POST["exchange"]),
+                   amount = int(request.POST["amount"]),
+                   )
+    if not protfolio.removeStock(stock = s,price = soldPrice ):
+        messages.info(request, 'Some of the details is wrong!')
+    protfolio.save()

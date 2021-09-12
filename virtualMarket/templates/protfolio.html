@@ -9,7 +9,9 @@
           <title>{{ name }}</title>
        </head>
        <h1>{{ name }}</h1>
-       <h1>money = {{ sum }}</h1>
+       <h1>money = {{ sum }}$</h1>
+       <h1>Protfilo value = {{ value }}$</h1>
+       <h1>Protfilo change % = {{ changePer }}$</h1>
        <h1>ID: {{ id }}</h1>
 	    {% if stocks %}
            <body>
@@ -18,12 +20,18 @@
                     <th>Symbol</th>
                     <th>Last Price</th>
                     <th>% Change</th>
+                    <th>Profit $</th>
+                    <th>Amount</th>
+
+
                  </tr>
                  {% for stock in stocks %}
                  <tr ALIGN="CENTER" height="50">
                     <td >{{ stock.symbol }}</td>
                     <td>{{ stock.close }}</td>
-                    <td style = "color:{{ stock.colorChange }}";> {{ stock.change }} %</td>
+                    <td style = "color:{{ stock.colorChange }}";> {{ stock.changeProfit }} %</td>
+                    <td>{{ stock.profit }}</td>
+                    <td>{{ stock.amount }}</td>
                  </tr>
                  {% endfor %}
               </table>
@@ -32,17 +40,41 @@
         <h1 ALIGN="CENTER"> empty list of stock </h1>
        {% endif %}
 
-       <form action="protfolio" method = 'post' >
+       <script type="text/javascript">
+            function validateForm() {
+                var e = document.forms["StockData"]["act"].value;
+                var a = document.forms["StockData"]["symbol"].value;
+                var b = document.forms["StockData"]["screener"].value;
+                var c = document.forms["StockData"]["exchange"].value;
+                var d = document.forms["StockData"]["amount"].value;
+
+                if(strcmp(e,"DELETE")==0){
+                    return true;
+                }
+                    
+
+                if (a == null || a == "", b == null || b == "", c == null || c == "", d == null || d == "") {
+                    alert("Please Fill All Required Field");
+                    return false;
+                }
+          }
+
+}
+        </script>
+   
+       <form name = "StockData" action="protfolio" method = 'post' onsubmit="return validateForm()">
        
 	    <h1>Enter symbol : <input type="text" name = "symbol"><br></h1>
 	    <h1>Enter contry : <input type="text" name = "screener"><br></h1>
 	    <h1>Enter exchange : <input type="text" name = "exchange"><br></h1>
         <h1>Enter amount : <input type="text" name = "amount"><br></h1>
-        <h1>Enter buyPrice : <input type="text" name = "buyPrice"><br></h1>
+        <h1>Enter Buy Price : <input type="text" name = "buyPrice"><br></h1>
+        <h1>Enter Sold Price : <input type="text" name = "soldPrice"><br></h1>
         <input type="hidden" value={{ id }} name = "id">
         {% csrf_token %}
-	    <input type="submit"  value="BUY" name="act" style="background-color:green">
-        <input type="submit"  value="SOLD" name="act" style="background-color:red">
+	    <input type="submit"  value="BUY" name="act" class="btn" style="color: white; background-color: green;" id="header-links" >
+        <input type="submit"  value="SOLD" name="act" class="btn" style="color: white; background-color: red;" id="header-links" >
+        <input type="submit"  value="DELETE" name="act"  class="btn" style="color: white; background-color: red;" id="header-links" onclick="return confirm('Are you sure you want to delete this item?');">
 
 
     
