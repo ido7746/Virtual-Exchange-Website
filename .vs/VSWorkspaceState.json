@@ -2,14 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\myFirstApp",
-    "\\myFirstApp\\templates",
-    "\\users",
     "\\users\\templates",
     "\\users\\templates\\users",
-    "\\virtualMarket",
-    "\\virtualMarket\\migrations",
-    "\\virtualMarket\\templates"
+    "\\virtualMarket"
   ],
-  "SelectedNode": "\\virtualMarket\\models.py",
+  "SelectedNode": "\\virtualMarket\\templates",
   "PreviewInSolutionExplorer": false
 }

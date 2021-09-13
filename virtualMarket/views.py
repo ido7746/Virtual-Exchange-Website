@@ -98,7 +98,8 @@ def buyStock(request, protfolio):
                    screener = str(request.POST["screener"]),
                    exchange = str(request.POST["exchange"]),
                    amount = int(request.POST["amount"]),
-                   buyPrice = buyPrice
+                   buyPrice = buyPrice,
+                   profit = 0
                    )
 
     if not protfolio.addStock(s):

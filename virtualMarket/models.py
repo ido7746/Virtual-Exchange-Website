@@ -9,12 +9,13 @@ from myFirstApp.models import Stock
 
 
 
+
 class StockTrade(Stock):
     buyPrice = models.FloatField(default=-1)
     amount = models.FloatField()
     close = models.FloatField(default = -1)
     changeProfit = models.FloatField(default = -1)
-    profit = models.FloatField(default = -1)
+    profit = models.FloatField(default = 0)
     time = models.DateField(("Date"), default=timezone.now)
 
     def toJson(self):
@@ -38,7 +39,14 @@ class StocksProtfolio(models.Model):
 
 
     def getStocksList(self):
-        return json.loads(self.listOfStock)
+        dics = json.loads(self.listOfStock)
+        for dic in dics:
+            dic["buyPrice"] = float(dic["buyPrice"])
+            dic["amount"] = float(dic["amount"])
+            dic["close"] = float(dic["close"])
+            dic["changeProfit"] = float(dic["changeProfit"])
+            dic["profit"] = float(dic["profit"])
+        return dics
 
 
 
@@ -72,55 +80,48 @@ class StocksProtfolio(models.Model):
             price = data['close']
         if stock.amount<=0:
             return False
-        price = price*stock.amount
-        self.sum+=price
+        
         ls = json.loads(self.listOfStock)
 
         for st in ls:
             if st["symbol"]==stock.symbol and st["screener"]==stock.screener and st["exchange"]==stock.exchange:
                 if stock.amount> st["amount"]:
-                   stock.amount = st["amount"]
-                self.sum += stock.amount*price
+                   stock.amount = st["amount"]#SOLD all the stocks
                 st["amount"]-=stock.amount
+                price = price*stock.amount
+                self.sum=self.sum + price
                 if st["amount"]==0:
                     ls.remove(st)
-        self.listOfStock = json.dumps(ls)
-        self.refreshData()
-        return True
+                self.listOfStock = json.dumps(ls)
+                self.refreshData()
+                return True
 
 
 
 
     def refreshData(self):
-        sum1 = 0
+        profits = 0
         ls = json.loads(self.listOfStock)
         for stock in ls:
             data = get_data(stock['symbol'], stock['screener'], stock['exchange'], ["close"], '1d')
             if data != {}:
                 stock['profit'] = data['close']*stock['amount']-stock['buyPrice']
                 stock['changeProfit'] = ((data['close']*stock['amount'] - stock['buyPrice'])/stock['buyPrice'])*100
-                stock['close'] = "{:.2f}".format(data['close'])
-                stock['profit'] = "{:.2f}".format(stock['profit'])
-                stock['changeProfit'] = "{:.2f}".format(stock['changeProfit'])
-                sum1+=stock['profit']
-        self.sum+= sum1
+                stock['close'] = data['close']
+                stock['changeProfit'] = stock['changeProfit']
+                profits=profits+stock['profit']+stock['buyPrice']
         self.listOfStock = json.dumps(ls)
 
         #calculate the value
-        value = self.sum 
-        for stock in ls:
-            value+=stock["profit"]
-        self.value = float("{:.2f}".format(value))
+        self.value = profits + self.sum
 
         #calculate the change Percent
-        currValueStocks = self.value - self.sum
         buyValue = 0
         for stock in ls:
-            buyValue+=stock['buyPrice']
+            buyValue=buyValue+stock['buyPrice']
+        buyValue = buyValue + self.sum
         if buyValue!=0:
-            self.changePer = (currValueStocks - buyValue)/buyValue*100
-            self.changePer = float("{:.2f}".format(self.changePer))
-        self.sum = float("{:.2f}".format(self.sum))
+            self.changePer = (self.value - buyValue)/buyValue*100
 
         self.save()
 
