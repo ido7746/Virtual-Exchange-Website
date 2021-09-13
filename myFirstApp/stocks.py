@@ -41,11 +41,13 @@ def data1(symbols, interval, indicators):
     return data_json
 
 
-def get_data(symbol, screener, exchange, indicators, interval):
+def get_data(symbol, screener, exchange, indicators, interval, shortData = True):
 
     __version__ = "3.2.7"
     scan_url = "https://scanner.tradingview.com/"
     timeout = None
+
+    indicators.append("close")
 
     exchange_symbol = f"{exchange}:{symbol}"
     data = data1([exchange_symbol], interval, indicators)
@@ -69,6 +71,13 @@ def get_data(symbol, screener, exchange, indicators, interval):
         data[indicatoe] = result[0]['d'][i]
         i+=1
 
+    for indicatoe in indicators:
+        if shortData and data["close"]>=5:
+            data[indicatoe] = float("{:.2f}".format(data[indicatoe]))
+
     data["symbol"] = symbol.upper()
+
+    
+
 
     return data

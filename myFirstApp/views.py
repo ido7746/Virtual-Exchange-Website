@@ -10,13 +10,13 @@ from django.shortcuts import redirect
 
 
 
-def search(request):
+def addStocks(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You most to login first!')
         return redirect('login/')
 
-    if not 'symbol' in request.GET:
-        return render(request, "home.html")
+    if not 'symbol' in request.POST:
+        return render(request, "addStocks.html")
 
     followLS = FollowStocks.objects.filter(author = request.user)
     if not followLS:
@@ -25,18 +25,19 @@ def search(request):
     else:
         followLS=followLS[0]
 
-    stock = Stock(symbol = str(request.GET['symbol']).upper(),
-    screener = str(request.GET['contry']).lower(),
-    exchange = str(request.GET['exchange']).lower(),)
+    stock = Stock(symbol = str(request.POST['symbol']).upper(),
+    screener = str(request.POST['contry']).lower(),
+    exchange = str(request.POST['exchange']).lower(),)
 
+    print(str(request.POST['symbol']) , str(request.POST['contry']), str(request.POST['exchange']))
 
     stocks = followLS.getList()
     for s1 in stocks:
         if s1["symbol"]==stock.symbol and s1["screener"] == stock.screener and s1["exchange"] == stock.exchange:
-            return render(request, "home.html")
+            return redirect('liveStocks')
 
     followLS.addToList(stock)
-    return render(request, "home.html")
+    return redirect('liveStocks')
 
 
 
@@ -56,7 +57,7 @@ def liveStocks(request):
     followLS = FollowStocks.objects.filter(author = request.user)
     if not followLS:
         messages.info(request, 'You most to add stocks first!')
-        return redirect('search')
+        return redirect('addStocks')
     else:
         followLS=followLS[0]
 

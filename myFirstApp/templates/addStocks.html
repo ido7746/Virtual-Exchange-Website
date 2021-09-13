@@ -1,0 +1,23 @@
+</script>
+{% extends 'users/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+{% block content %}
+
+
+<h1>creatProtfolio</h1>
+
+<form action="addStocks" method = 'post'>
+{% csrf_token %}
+	<h1>Enter symbol : <input type="text" name = "symbol"><br></h1>
+	<h1>Enter contry : <input type="text" name = "contry"><br></h1>
+	<h1>Enter exchange : <input type="text" name = "exchange"><br></h1>
+	<input type="submit"  class="btn" style="color: white; background-color: #fd5e14;" id="header-links">
+</form>
+
+
+{% endblock content %}
+
+   
+</html>

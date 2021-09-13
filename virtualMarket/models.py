@@ -99,9 +99,9 @@ class StocksProtfolio(models.Model):
             if data != {}:
                 stock['profit'] = data['close']*stock['amount']-stock['buyPrice']
                 stock['changeProfit'] = ((data['close']*stock['amount'] - stock['buyPrice'])/stock['buyPrice'])*100
-                stock['close'] = float("{:.2f}".format(data['close']))
-                stock['profit'] = float("{:.2f}".format(stock['profit']))
-                stock['changeProfit'] = float("{:.2f}".format(stock['changeProfit']))
+                stock['close'] = "{:.2f}".format(data['close'])
+                stock['profit'] = "{:.2f}".format(stock['profit'])
+                stock['changeProfit'] = "{:.2f}".format(stock['changeProfit'])
                 sum1+=stock['profit']
         self.sum+= sum1
         self.listOfStock = json.dumps(ls)

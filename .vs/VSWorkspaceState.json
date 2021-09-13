@@ -3,9 +3,13 @@
     "",
     "\\myFirstApp",
     "\\myFirstApp\\templates",
+    "\\users",
+    "\\users\\templates",
+    "\\users\\templates\\users",
     "\\virtualMarket",
+    "\\virtualMarket\\migrations",
     "\\virtualMarket\\templates"
   ],
-  "SelectedNode": "\\virtualMarket\\views.py",
+  "SelectedNode": "\\virtualMarket\\models.py",
   "PreviewInSolutionExplorer": false
 }
