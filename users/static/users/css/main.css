@@ -241,12 +241,51 @@ text-align:center;
 
 
 
+.container{
+
+}
+
+
+.content-table{
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 2.0em;
+  min-width: 400px;
+  font-weight: arial;
+  border-radius: 15px 15px 15px 15px; 
+  overflow: hidden;
+}
+
+.content-table th,
+.content-table td{
+  padding: 12px 15px;
+}
+
+
+
+.content-table thead tr{
+  background-color: blue;
+  color: white;
+  text-align: left;
+}
+
+.content-table tbody tr{
+  border-bottom: 2px solid black;
+}
+.content-table tbody tr{
+  background-color: rgba(255, 255, 255, 0.918);
+}
+
+.content-table tbody tr:nth-of-type(even){
+  background-color: rgba(255, 255, 255, 0.746);
+}
 
 
 
 
 
-// Remy function
+
+
 @function remy($value) {
 @return ($value / 16px) * 1rem;
 }
@@ -390,3 +429,6 @@ color: #999;
   transition-delay: 0.1s;
   text-decoration: none;
   border-radius: 9px;
+
+}
+

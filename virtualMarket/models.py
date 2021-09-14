@@ -106,7 +106,9 @@ class StocksProtfolio(models.Model):
             data = get_data(stock['symbol'], stock['screener'], stock['exchange'], ["close"], '1d')
             if data != {}:
                 stock['profit'] = data['close']*stock['amount']-stock['buyPrice']
+                stock['profit'] = float("{:.2f}".format(stock['profit']))
                 stock['changeProfit'] = ((data['close']*stock['amount'] - stock['buyPrice'])/stock['buyPrice'])*100
+                stock['changeProfit'] = float("{:.2f}".format(stock['changeProfit']))
                 stock['close'] = data['close']
                 stock['changeProfit'] = stock['changeProfit']
                 profits=profits+stock['profit']+stock['buyPrice']
@@ -122,6 +124,7 @@ class StocksProtfolio(models.Model):
         buyValue = buyValue + self.sum
         if buyValue!=0:
             self.changePer = (self.value - buyValue)/buyValue*100
+            self.changePer = float("{:.2f}".format(self.changePer))
 
         self.save()
 

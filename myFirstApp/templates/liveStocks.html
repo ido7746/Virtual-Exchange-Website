@@ -3,32 +3,38 @@
   window.location.reload();
 }, 5000);
 </script>
+
 {% extends 'users/base.html' %}
 {% load static %}
 <!DOCTYPE html>
+
 <html>
 {% block content %}
 
        <head>
           <title>My Stocks LIVE!</title>
        </head>
+      
+
 	    {% if stocks %}
-           <body>
-              <table ALIGN="CENTER" style = "font-size:40px ;color : black; background-color: white">
-                 <tr ALIGN="CENTER">
+           <table class="content-table">
+              <thead>
+                 <tr>
                     <th>Symbol</th>
                     <th>Last Price</th>
-                    <th>% Change</th>
+                    <th>% Change</th> 
                  </tr>
-                 {% for stock in stocks %}
-                 <tr ALIGN="CENTER" height="50">
-                    <td >{{ stock.symbol }}</td>
-                    <td>{{ stock.close }}</td>
-                    <td style = "color:{{ stock.colorChange }}";> {{ stock.change }} %</td>
-                 </tr>
-                 {% endfor %}
-              </table>
-           </body>
+               </thead>
+               <tbody>
+                  {% for stock in stocks %}
+                  <tr>
+                     <td >{{ stock.symbol }}</td>
+                     <td>{{ stock.close }}</td>
+                     <td style = "color:{{ stock.colorChange }}";> {{ stock.change }}%</td>                        </tr>
+                     {% endfor %}
+                  </tr>
+               </tbody>
+            </table>
        {% else %}
         <h1 ALIGN="CENTER"> empty list of stock </h1>
        {% endif %}
