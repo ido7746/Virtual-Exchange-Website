@@ -77,21 +77,21 @@
          <ul>
        <form name = "StockData" action="protfolio" method = 'post' onsubmit="return validateForm()">
        
-	    <h1>Enter symbol : <input type="text" name = "symbol"><br></h1>
-	    <h1>Enter contry : <input type="text" name = "screener"><br></h1>
-	    <h1>Enter exchange : <input type="text" name = "exchange"><br></h1>
+	    <h1>Enter symbol : <input type="text" name = "symbol" placeholder="AAPL"><br></h1>
+	    <h1>Enter contry : <input type="text" name = "screener" placeholder="America"><br></h1>
+	    <h1>Enter exchange : <input type="text" name = "exchange" placeholder="NASDAQ"><br></h1>
         <h1>Enter amount : <input type="text" name = "amount"><br></h1>
-        <h1>Enter Buy Price : <input type="text" name = "buyPrice"><br></h1>
-        <h1>Enter Sold Price : <input type="text" name = "soldPrice"><br></h1>
+        <h1>Enter Buy Price : <input type="text" name = "buyPrice" placeholder="NONE for Real Time"><br></h1>
+        <h1>Enter Sold Price : <input type="text" name = "soldPrice" placeholder="NONE for Real Time"><br></h1>
         <input type="hidden" value={{ id }} name = "id">
         {% csrf_token %}
-	     <input type="submit"  value="BUY" name="act" class="btn-ido" id="buy">
-        <input type="submit"  value="SOLD" name="act" class="btn-ido" id="sold">
+	     <button input type="submit"  value="BUY" name="act" class="btn-ido" id="buy">BUY</button>
+        <button input type="submit"  value="SOLD" name="act" class="btn-ido" id="sold">SOLD</button>
          </p>
          </ul>
       </div>
       </details>
-        <input type="submit" style="position:absolute" value="DELETE" name="act"  class="btn-ido" id="sold" onclick="return confirm('Are you sure you want to delete this item?');">
+        <button ssinput type="submit" style="position:absolute" value="DELETE" name="act"  class="btn-ido" id="sold" onclick="return confirm('Are you sure you want to delete this item?');">Delete Protfolio</button>
 
 
     

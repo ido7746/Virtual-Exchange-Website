@@ -277,6 +277,9 @@ text-align:center;
 .content-table tbody tr{
   border-bottom: 2px solid black;
 }
+.content-table tbody tr:last-child{
+  border-bottom: none;
+}
 .content-table tbody tr{
   background-color: rgba(255, 255, 255, 0.918);
 }
@@ -453,6 +456,7 @@ color: #999;
   overflow: hidden;
   transition: 0.2s;
   font-family: 'Open Sans', sans-serif;
+  border-style: hidden;
 }
 .btn-ido:hover{
   color: #ffffff;
