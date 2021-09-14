@@ -8,12 +8,10 @@
     <form action="" method="POST">
       {% csrf_token %}
       <fieldset class="form-group">
-          <legend class="border-bottom mb-4" style="color: white;">Join Now</legend>
+          <legend class="h1" style="color: white;">Join Now</legend>
           {{ form|crispy }}
       </fieldset>
-      <div class="form-group" id="signup-button">
-          <button class="btn ">Sign Up</button>
-      </div>
+          <button class="btn-ido">Sign Up</button>
       <div class="form-group">
           <small class="text-muted ml-3" >Already have an account? <a href="{% url 'login' %}">Sign In</a></small>
       </div>

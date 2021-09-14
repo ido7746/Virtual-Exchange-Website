@@ -11,23 +11,26 @@
 {% if protfolios %}
 <h1 ALIGN="CENTER">You protfolio's</h1>
             <body>
-              <table ALIGN="CENTER" style = "font-size:40px ;color : black; background-color: white">
+              <table ALIGN="CENTER" class = "content-table">
+               <thead>
                  <tr ALIGN="CENTER">
                     <th>Name</th>
                     <th>Money</th>
                     <th>Value</th>
                     <th>Change %</th>
+                    <th>    </th>
                  </tr>
+               </thead>
                  {% for p in protfolios %}
-                 <tr ALIGN="CENTER" height="50">
-                    <td >{{ p.name }}</td>
+                 <tr ALIGN="CENTER">
+                    <td>{{ p.name }}</td>
                     <td>{{ p.sum }}</td>
                     <td>{{ p.value }}</td>
                     <td>{{ p.changePer }}</td>
                     <form action="protfolio" method = 'post'>
                     {% csrf_token %}
                     <input type="hidden" value={{ p.id }} name = "id">
-	                <td><input type="submit"  value="more"><td>
+	                 <td><input type="submit" style="border-radius: 15px" class="btn-ido" value=" ... "></td>
                  </tr>
                  {% endfor %}
               </table>

@@ -111,12 +111,17 @@ class StocksProtfolio(models.Model):
                 stock['changeProfit'] = float("{:.2f}".format(stock['changeProfit']))
                 stock['close'] = data['close']
                 stock['changeProfit'] = stock['changeProfit']
+                if(stock['changeProfit']<0):
+                    stock['color']='red'
+                if(stock['changeProfit']>0):
+                    stock['color']='green'
                 profits=profits+stock['profit']+stock['buyPrice']
         self.listOfStock = json.dumps(ls)
 
         #calculate the value
         self.value = profits + self.sum
-
+        self.value = float("{:.2f}".format(self.value))
+        
         #calculate the change Percent
         buyValue = 0
         for stock in ls:

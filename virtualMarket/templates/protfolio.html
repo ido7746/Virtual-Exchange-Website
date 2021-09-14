@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html>
 {% block content %}
-
+<body>
+   <h1>TEST</h1>
+</body>
        <head>
           <title>{{ name }}</title>
        </head>
@@ -29,7 +31,7 @@
                  <tr ALIGN="CENTER">
                     <td >{{ stock.symbol }}</td>
                     <td>{{ stock.close }}</td>
-                    <td style = "color:{{ stock.colorChange }}";> {{ stock.changeProfit }} %</td>
+                    <td style="color : {{stock.color}}"> {{ stock.changeProfit }}%</td>
                     <td>{{ stock.profit }}</td>
                     <td>{{ stock.amount }}</td>
                  </tr>
@@ -41,6 +43,13 @@
        {% endif %}
 
        <script type="text/javascript">
+            function colorValue(a){
+               if(a<0)
+                  return 'red';
+               if(a>0)
+                  return 'green';
+               return 'black';
+            }
             function validateForm() {
                 var e = document.forms["StockData"]["act"].value;
                 var a = document.forms["StockData"]["symbol"].value;
@@ -59,9 +68,13 @@
                 }
           }
 
-}
+
         </script>
-   
+      <details>
+         <summary>BUY/SOLD</summary>
+         <div class="content">
+         <p>
+         <ul>
        <form name = "StockData" action="protfolio" method = 'post' onsubmit="return validateForm()">
        
 	    <h1>Enter symbol : <input type="text" name = "symbol"><br></h1>
@@ -72,9 +85,13 @@
         <h1>Enter Sold Price : <input type="text" name = "soldPrice"><br></h1>
         <input type="hidden" value={{ id }} name = "id">
         {% csrf_token %}
-	    <input type="submit"  value="BUY" name="act" class="btn" style="color: white; background-color: green;" id="header-links" >
-        <input type="submit"  value="SOLD" name="act" class="btn" style="color: white; background-color: red;" id="header-links" >
-        <input type="submit"  value="DELETE" name="act"  class="btn" style="color: white; background-color: red;" id="header-links" onclick="return confirm('Are you sure you want to delete this item?');">
+	     <input type="submit"  value="BUY" name="act" class="btn-ido" id="buy">
+        <input type="submit"  value="SOLD" name="act" class="btn-ido" id="sold">
+         </p>
+         </ul>
+      </div>
+      </details>
+        <input type="submit" style="position:absolute" value="DELETE" name="act"  class="btn-ido" id="sold" onclick="return confirm('Are you sure you want to delete this item?');">
 
 
     

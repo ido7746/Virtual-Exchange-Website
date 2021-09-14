@@ -3,11 +3,13 @@
   background-size: cover;
   background-attachment: fixed;
 }
+
 #main-navbar{
-  color: white;
+  color: rgb(255, 255, 255);
   min-height: 14vh;
   font-size: 15px;
 }
+
 #authstyle{
   margin-left: 17%;
   border-radius: 50%;
@@ -40,13 +42,14 @@
   font-size: 13px;
   overflow: hidden;
   transition: 0.2s;
+  font-family: 'Open Sans', sans-serif;
 }
 #header-links:hover{
-  color: #021f3b;
+  color: #ffffff;
   font-size: 15px;
   border-radius: 6px;
-  background-color: #ffcab1;
-  box-shadow: 0 0 10px #ff8248, 0 0 4px #ff8248,0 0 80px #ff8248;
+  background-color: #1481fde7;
+  box-shadow: 0 0 10px #1481fde7, 0 0 4px #1481fde7,0 0 80px #1481fde7;
   transition-delay: 0.1s;
   text-decoration: none;
   border-radius: 9px;
@@ -90,7 +93,7 @@
 body{
 margin:0;
 color:#6a6f8c;
-background-image: url('images/bg.png');
+background-image: url('images/1.jpg');
 font:600 16px/18px 'Open Sans',sans-serif;
 }
 *,:after,:before{box-sizing:border-box}
@@ -254,6 +257,8 @@ text-align:center;
   font-weight: arial;
   border-radius: 15px 15px 15px 15px; 
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .content-table th,
@@ -432,3 +437,83 @@ color: #999;
 
 }
 
+
+
+
+.btn-ido{
+  color: white;
+  position: relative;
+  background-color: #1481fde7;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 20px;
+  overflow: hidden;
+  transition: 0.2s;
+  font-family: 'Open Sans', sans-serif;
+}
+.btn-ido:hover{
+  color: #ffffff;
+  font-size: 25px;
+  border-radius: 6px;
+  transition-delay: 0.1s;
+  text-decoration: none;
+  border-radius: 9px;
+}
+#sold{
+  background-color: #eb1818e7;
+}
+#sold:hover{
+  background-color: #eb1818e7;
+  box-shadow: 0 0 10px #eb1818e7, 0 0 4px #eb1818e7,0 0 80px #eb1818e7;
+}
+#buy{
+  background-color: green;
+}
+#buy:hover{
+  background-color: green;
+  box-shadow: 0 0 10px green, 0 0 4px green,0 0 80px green;
+}
+
+
+h1{
+  font: arial;
+  font-size: 15px;
+  color: black;
+}
+
+summary{
+  padding: 1em;
+  background: yellow;
+  margin-bottom: 1em;
+  cursor: pointer;
+  outline:none;
+  border-radius: .3em;
+  font-weight: bold;
+  transition: background-color .3s;
+  width:fit-content;
+
+}
+summary:hover{
+    background: yellowgreen;
+
+}
+
+details[open] summary ~ * {
+  animation: sweep .5s easw-in-out;
+}
+
+@keyframes sweep{
+  fro {
+    opacity: 0;
+    margin-top: -10px;
+
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+    
+  }
+}
