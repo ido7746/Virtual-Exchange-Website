@@ -1,13 +1,8 @@
-<script type="text/javascript">
-  window.setTimeout(function () {
-  window.location.reload();
-}, 5000);
-</script>
+
 
 {% extends 'users/base.html' %}
 {% load static %}
 <!DOCTYPE html>
-
 <html>
 {% block content %}
 
@@ -38,8 +33,41 @@
        {% else %}
         <h1 ALIGN="CENTER"> empty list of stock </h1>
        {% endif %}
-       <a href="{% url 'addStocks' %}" class="btn-ido" type="submit" id="header-links"> Add Stock </a>
     
+
+
+
+   <script type="text/javascript">
+      function validateForm() {
+            var a = document.forms["StockData"]["symbol"].value;
+            var b = document.forms["StockData"]["contry"].value;
+            var c = document.forms["StockData"]["exchange"].value;
+   
+            if (a == null || a == "", b == null || b == "", c == null || c == "", d == null || d == "") {
+               alert("Please Fill All Required Field");
+               return false;
+            }
+      }
+   </script>
+   <details>
+      <summary>Add stock</summary>
+      <div class="content">
+         <p>
+         <ul>
+            <form name = "StockData" action="liveStocks" method = 'post' onsubmit="return validateForm()">
+            
+            <h1>Enter symbol : <input type="text" name = "symbol" placeholder="AAPL"><br></h1>
+            <h1>Enter contry : <input type="text" name = "contry" placeholder="America"><br></h1>
+            <h1>Enter exchange : <input type="text" name = "exchange" placeholder="NASDAQ"><br></h1>
+            {% csrf_token %}
+            <button type="submit" class="btn-ido" >Add</button>
+         </p>
+         </ul>
+      </div>
+   </details>
+
+   
+
 {% endblock content %}
 
    

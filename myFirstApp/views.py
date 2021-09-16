@@ -11,16 +11,9 @@ from django.shortcuts import redirect
 
 
 def addStocks(request):
-    if not request.user.is_authenticated:
-        messages.info(request, 'You most to login first!')
-        return redirect('login/')
-
-    if not 'symbol' in request.POST:
-        return render(request, "addStocks.html")
-
     followLS = FollowStocks.objects.filter(author = request.user)
     if not followLS:
-        followLS = FollowStocks(author = request.user)
+        followLS = FollowStocks(author = request.user)#create Follow list to the user
         followLS.save()
     else:
         followLS=followLS[0]
@@ -29,15 +22,19 @@ def addStocks(request):
     screener = str(request.POST['contry']).lower(),
     exchange = str(request.POST['exchange']).lower(),)
 
-    print(str(request.POST['symbol']) , str(request.POST['contry']), str(request.POST['exchange']))
+    if get_data(stock.symbol, stock.screener, stock.exchange, ["close"], '1d')=={}:
+        messages.info(request, 'No such stock was found')
+        return False
+
 
     stocks = followLS.getList()
     for s1 in stocks:
         if s1["symbol"]==stock.symbol and s1["screener"] == stock.screener and s1["exchange"] == stock.exchange:
-            return redirect('liveStocks')
+            messages.info(request, "".join(['The stock ', stock.symbol ,' is already on the list!']))
+            return True
 
     followLS.addToList(stock)
-    return redirect('liveStocks')
+    return True
 
 
 
@@ -46,6 +43,11 @@ def liveStocks(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You most to login first!')
         return redirect('login/')
+
+    if 'symbol' in request.POST and 'contry' in request.POST and 'exchange' in request.POST:
+        if not addStocks(request):
+            return redirect('liveStocks')
+        
 
     inducators = ["open",
       "change",
@@ -56,10 +58,9 @@ def liveStocks(request):
 
     followLS = FollowStocks.objects.filter(author = request.user)
     if not followLS:
-        messages.info(request, 'You most to add stocks first!')
-        return redirect('addStocks')
-    else:
-        followLS=followLS[0]
+        followLS = FollowStocks(author = request.user)#create Follow list to the user
+        followLS.save()
+    followLS=followLS[0]
 
     stocks = followLS.getList()
 
@@ -76,5 +77,7 @@ def liveStocks(request):
             if(data["change"]>0):
                 data["colorChange"] = "green"
             ls.append(data)
+        else:#not legal stock
+            followLS.remove(stock)
     
     return render(request , 'liveStocks.html', {'stocks' : ls})

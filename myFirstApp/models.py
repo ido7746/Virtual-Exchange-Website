@@ -31,3 +31,10 @@ class FollowStocks(models.Model):
         ls.append(stock.toJson())
         self.listOfStock = json.dumps(ls)
         self.save()
+
+    def remove(self, stock):
+        print("remove ", stock['symbol'])
+        ls = self.getList()
+        ls.remove(stock)
+        self.listOfStock = json.dumps(ls)
+        self.save()
