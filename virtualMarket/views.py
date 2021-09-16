@@ -94,7 +94,7 @@ def buyStock(request, protfolio):
     buyPrice = -1
     if request.POST['buyPrice']!='':
         buyPrice = float(request.POST["buyPrice"])
-    s = StockTrade(symbol = str(request.POST["symbol"]),
+    s = StockTrade(symbol = str(request.POST["symbol"].upper()),
                    screener = str(request.POST["screener"]),
                    exchange = str(request.POST["exchange"]),
                    amount = int(request.POST["amount"]),

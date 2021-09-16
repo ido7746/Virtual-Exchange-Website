@@ -4,43 +4,42 @@
 <!DOCTYPE html>
 <html>
 {% block content %}
-<body>
-   <h1>TEST</h1>
-</body>
-       <head>
-          <title>{{ name }}</title>
-       </head>
-       <h1>{{ name }}</h1>
-       <h1>money = {{ sum }}$</h1>
-       <h1>Protfilo value = {{ value }}$</h1>
-       <h1>Protfilo change % = {{ changePer }}%</h1>
-       <h1>ID: {{ id }}</h1>
-	    {% if stocks %}
-           <body>
-              <table ALIGN="CENTER" class = "content-table">
-                 <thead>
-                 <tr>
-                    <th>Symbol</th>
-                    <th>Last Price</th>
-                    <th>% Change</th>
-                    <th>Profit $</th>
-                    <th>Amount</th>
-                 </tr>
-               </thead>
-                 {% for stock in stocks %}
-                 <tr ALIGN="CENTER">
-                    <td >{{ stock.symbol }}</td>
-                    <td>{{ stock.close }}</td>
-                    <td style="color : {{stock.color}}"> {{ stock.changeProfit }}%</td>
-                    <td>{{ stock.profit }}</td>
-                    <td>{{ stock.amount }}</td>
-                 </tr>
-                 {% endfor %}
-              </table>
-           </body>
-       {% else %}
-        <h1 ALIGN="CENTER"> empty list of stock </h1>
-       {% endif %}
+       <title>{{ name }}</title>
+       <section style="position: absolute;">
+         <h1>{{ name }}</h1>
+         <h1>money = {{ sum }}$</h1>
+         <h1>Protfilo value = {{ value }}$</h1>
+         <h1>Protfilo change % = {{ changePer }}%</h1>
+         <h1>ID: {{ id }}</h1>
+      </section>
+      <section style="align-items: center;">
+         {% if stocks %}
+            <body>
+               <table ALIGN="CENTER" class = "content-table">
+                  <thead>
+                  <tr>
+                     <th>Symbol</th>
+                     <th>Last Price</th>
+                     <th>% Change</th>
+                     <th>Profit $</th>
+                     <th>Amount</th>
+                  </tr>
+                  </thead>
+                  {% for stock in stocks %}
+                  <tr ALIGN="CENTER">
+                     <td><a href="{% url 'home' %}search?symbol={{ stock.symbol }}&exchange={{ stock.exchange }}">{{ stock.symbol }}</a></td>
+                     <td>{{ stock.close }}</td>
+                     <td style="color : {{stock.color}}"> {{ stock.changeProfit }}%</td>
+                     <td>{{ stock.profit }}</td>
+                     <td>{{ stock.amount }}</td>
+                  </tr>
+                  {% endfor %}
+               </table>
+            </body>
+         {% else %}
+         <h1 ALIGN="CENTER"> empty list of stock </h1>
+         {% endif %}
+      </section>
 
        <script type="text/javascript">
             function colorValue(a){
@@ -69,30 +68,31 @@
           }
 
 
-        </script>
-      <details>
-         <summary>BUY/SOLD</summary>
-         <div class="content">
-         <p>
-         <ul>
-       <form name = "StockData" action="protfolio" method = 'post' onsubmit="return validateForm()">
-       
-	    <h1>Enter symbol : <input type="text" name = "symbol" placeholder="AAPL"><br></h1>
-	    <h1>Enter contry : <input type="text" name = "screener" placeholder="America"><br></h1>
-	    <h1>Enter exchange : <input type="text" name = "exchange" placeholder="NASDAQ"><br></h1>
-        <h1>Enter amount : <input type="text" name = "amount"><br></h1>
-        <h1>Enter Buy Price : <input type="text" name = "buyPrice" placeholder="NONE for Real Time"><br></h1>
-        <h1>Enter Sold Price : <input type="text" name = "soldPrice" placeholder="NONE for Real Time"><br></h1>
-        <input type="hidden" value={{ id }} name = "id">
-        {% csrf_token %}
-	     <button input type="submit"  value="BUY" name="act" class="btn-ido" id="buy">BUY</button>
-        <button input type="submit"  value="SOLD" name="act" class="btn-ido" id="sold">SOLD</button>
-         </p>
-         </ul>
-      </div>
-      </details>
-        <button ssinput type="submit" style="position:absolute" value="DELETE" name="act"  class="btn-ido" id="sold" onclick="return confirm('Are you sure you want to delete this item?');">Delete Protfolio</button>
+         </script>
+      <section style="position: absolute;">
+         <details>
+            <summary>BUY/SOLD</summary>
+            <div class="content">
+            <p>
+            <ul>
+            <form name = "StockData" action="protfolio" method = 'post' onsubmit="return validateForm()">
 
+         <h1>Enter symbol : <input type="text" name = "symbol" placeholder="AAPL"><br></h1>
+         <h1>Enter contry : <input type="text" name = "screener" placeholder="America"><br></h1>
+         <h1>Enter exchange : <input type="text" name = "exchange" placeholder="NASDAQ"><br></h1>
+         <h1>Enter amount : <input type="text" name = "amount"><br></h1>
+         <h1>Enter Buy Price : <input type="text" name = "buyPrice" placeholder="NONE for Real Time"><br></h1>
+         <h1>Enter Sold Price : <input type="text" name = "soldPrice" placeholder="NONE for Real Time"><br></h1>
+         <input type="hidden" value={{ id }} name = "id">
+         {% csrf_token %}
+         <button input type="submit"  value="BUY" name="act" class="btn-ido" id="buy">BUY</button>
+         <button input type="submit"  value="SOLD" name="act" class="btn-ido" id="sold">SOLD</button>
+            </p>
+            </ul>
+         </div>
+         </details>
+         <button ssinput type="submit" style="position:absolute" value="DELETE" name="act"  class="btn-ido" id="sold" onclick="return confirm('Are you sure you want to delete this item?');">Delete Protfolio</button>
+      </section>
 
     
 {% endblock content %}

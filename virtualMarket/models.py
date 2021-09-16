@@ -65,7 +65,7 @@ class StocksProtfolio(models.Model):
         self.sum-=stock.buyPrice
 
         ls = json.loads(self.listOfStock)
-
+        stock.symbol = stock.symbol.upper()
         ls.append(stock.toJson())
         self.listOfStock = json.dumps(ls)
 

@@ -12,8 +12,8 @@ from django.shortcuts import redirect
 
 def search(request):
     if 'symbol' in request.GET and 'exchange' in request.GET:
-        return render(request, 'search.html',{'symbol':request.GET['symbol'],
-        'exchange':request.GET['exchange']})
+        return render(request, 'search.html',{'symbol':request.GET['symbol'].upper(),
+        'exchange':request.GET['exchange'].upper()})
     else:
         return render(request, 'search.html')
 
