@@ -10,6 +10,13 @@ from django.shortcuts import redirect
 
 
 
+def search(request):
+    if 'symbol' in request.GET and 'exchange' in request.GET:
+        return render(request, 'search.html',{'symbol':request.GET['symbol'],
+        'exchange':request.GET['exchange']})
+    else:
+        return render(request, 'search.html')
+
 def addStocks(request):
     followLS = FollowStocks.objects.filter(author = request.user)
     if not followLS:

@@ -1,0 +1,48 @@
+{% extends 'users/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+{% block content %}
+
+<body>
+	<form action="search" method = 'get'>
+			<h1>Symbol : <input type="text" name = "symbol"><br></h1>
+			<h1>Exchange : <input type="text" name = "exchange"><br></h1>
+		
+			<buttom input type="submit"  class="btn-ido" id="header-links"><a>search</buttom>
+</body>
+
+
+
+<div class="tradingview-widget-container">
+	<div id="tradingview_8abda"></div>
+	<div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BABA/" rel="noopener" target="_blank"></div>
+	<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+	<script type="text/javascript">
+	var a = document.getElementById("symbol")
+	var b = document.getElementById("exchange")
+	new TradingView.widget(
+	{
+	"width": 1300,
+	"height": 800,
+	b : a,
+	"interval": "1",
+	"timezone": "Etc/UTC",
+	"theme": "light",
+	"style": "1",
+	"locale": "en",
+	"toolbar_bg": "#f1f3f6",
+	"enable_publishing": false,
+	"hide_top_toolbar": true,
+	"hide_legend": true,
+	"save_image": false,
+	"container_id": "tradingview_8abda"
+  }
+	);
+	</script>
+  </div>
+
+{% endblock content %}
+
+   
+</html>
