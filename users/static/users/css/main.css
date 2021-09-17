@@ -15,8 +15,8 @@
   border-radius: 50%;
 }
 #header-text{
-  color: white;
-  font-family: 'Open Sans', sans-serif;
+  color: #EBEEF2;
+  font-family: 'Heebo', sans-serif;
   font-size: 50px;
   margin-top: 100px;
 }
@@ -33,6 +33,7 @@
   font-size: 60px;
 }
 #header-links{
+  color: #EBEEF2;
   position: relative;
   border-radius: 20px;
   display: inline-block;
@@ -42,14 +43,14 @@
   font-size: 13px;
   overflow: hidden;
   transition: 0.2s;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 #header-links:hover{
   color: #ffffff;
   font-size: 15px;
   border-radius: 6px;
-  background-color: #1481fde7;
-  box-shadow: 0 0 10px #1481fde7, 0 0 4px #1481fde7,0 0 80px #1481fde7;
+  background-color: #536173;
+  box-shadow: 0 0 10px #536173, 0 0 4px #536173,0 0 80px #536173;
   transition-delay: 0.1s;
   text-decoration: none;
   border-radius: 9px;
@@ -269,7 +270,7 @@ text-align:center;
 
 
 .content-table thead tr{
-  background-color: blue;
+  background-color: #3b6190;
   color: white;
   text-align: left;
 }
@@ -281,7 +282,7 @@ text-align:center;
   border-bottom: none;
 }
 .content-table tbody tr{
-  background-color: rgba(255, 255, 255, 0.918);
+  background-color: #EBEEF2;
 }
 
 .content-table tbody tr:nth-of-type(even){
@@ -340,7 +341,6 @@ padding: 2rem;
 display: flex;
 flex-wrap: wrap;
 align-items: center;
-background: url(http://ultraimg.com/images/spectre-login.jpg);
 background-repeat: no-repeat;
 background-position: top center;
 background-size: cover;
@@ -374,8 +374,6 @@ width: 100%;
 .thumbnail__links a {
 font-size: 1rem;
 color: #fff;
-&:focus,
-&:hover {color: rgba(255,255,255,.5);}
 }
 .signup__form {
 padding: 2.5rem;
@@ -392,7 +390,6 @@ border-top: 0;
 border-right: 0;
 border-left: 0;
 border-radius: 0;
-&:focus {border-color: #111;}
 }
 [type="text"] {color: #111;}
 [type="password"] {color: #111;}
@@ -404,41 +401,14 @@ text-transform: uppercase;
 color: #fff;
 background: #111;
 border-radius: remy(35px);
-&:focus,
-&:hover {background: lighten(#111, 13%);}
 }
 .signup__link {
 font-size: .8rem;
 font-weight: 600;
 text-decoration: underline;
 color: #999;
-&:focus,
-&:hover {color: darken(#999, 13%);}
-}
-#signup-button{
-  position: relative;
-  border-radius: 20px;
-  display: inline-block;
-  padding: 10px 25px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-size: 13px;
-  background-color: #fd5e19;
-  overflow: hidden;
-  transition: 0.2s;
 }
 
-#signup-button:hover{
-  color: #021f3b;
-  font-size: 15px;
-  border-radius: 6px;
-  background-color: #ffcab1;
-  box-shadow: 0 0 10px #ff8248, 0 0 4px #ff8248,0 0 80px #ff8248;
-  transition-delay: 0.1s;
-  text-decoration: none;
-  border-radius: 9px;
-
-}
 
 
 
@@ -446,7 +416,7 @@ color: #999;
 .btn-ido{
   color: white;
   position: relative;
-  background-color: #1481fde7;
+  background-color: #68788C;
   border-radius: 20px;
   display: inline-block;
   padding: 10px 25px;
@@ -455,7 +425,7 @@ color: #999;
   font-size: 20px;
   overflow: hidden;
   transition: 0.2s;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Heebo', sans-serif;
   border-style: hidden;
 }
 .btn-ido:hover{
@@ -483,14 +453,14 @@ color: #999;
 
 
 h1{
-  font: arial;
+  font-family: 'Heebo', sans-serif;
   font-size: 15px;
-  color: black;
+  color: #36404d;
 }
 
 summary{
   padding: 1em;
-  background: yellow;
+  background: #536173;
   margin-bottom: 1em;
   cursor: pointer;
   outline:none;
@@ -501,7 +471,7 @@ summary{
 
 }
 summary:hover{
-    background: yellowgreen;
+    background: #68788C;
 
 }
 
@@ -518,6 +488,37 @@ details[open] summary ~ * {
   to {
     opacity: 1;
     margin-top: 0;
-    
   }
+}
+
+.leftpane {
+  width: 25%;
+  height: 100%;
+  float: left;
+  background-color: rosybrown;
+  border-collapse: collapse;
+}
+
+.middlepane {
+  width: 50%;
+  height: 100%;
+  float: left;
+  background-color: royalblue;
+  border-collapse: collapse;
+}
+
+.rightpane {
+width: 25%;
+height: 100%;
+position: relative;
+float: right;
+background-color: yellow;
+border-collapse: collapse;
+}
+
+.toppane {
+width: 100%;
+height: 100px;
+border-collapse: collapse;
+background-color: #4da6ff;
 }

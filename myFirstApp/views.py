@@ -83,6 +83,7 @@ def liveStocks(request):
                 data["colorChange"] = "red"
             if(data["change"]>0):
                 data["colorChange"] = "green"
+            data["exchange"] = exchange
             ls.append(data)
         else:#not legal stock
             followLS.remove(stock)
