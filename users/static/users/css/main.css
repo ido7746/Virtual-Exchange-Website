@@ -461,6 +461,13 @@ h1{
 summary{
   padding: 1em;
   background: #536173;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 20px;
+  overflow: hidden;
   margin-bottom: 1em;
   cursor: pointer;
   outline:none;
@@ -491,37 +498,6 @@ details[open] summary ~ * {
   }
 }
 
-.leftpane {
-  width: 25%;
-  height: 100%;
-  float: left;
-  background-color: rosybrown;
-  border-collapse: collapse;
-}
-
-.middlepane {
-  width: 50%;
-  height: 100%;
-  float: left;
-  background-color: royalblue;
-  border-collapse: collapse;
-}
-
-.rightpane {
-width: 25%;
-height: 100%;
-position: relative;
-float: right;
-background-color: yellow;
-border-collapse: collapse;
-}
-
-.toppane {
-width: 100%;
-height: 100px;
-border-collapse: collapse;
-background-color: #4da6ff;
-}
 
 input[type = text]{
   width: 100%;
@@ -545,3 +521,5 @@ input[type=text]:focus{
   color: #36404d;
   font-weight: bold;
 }
+
+

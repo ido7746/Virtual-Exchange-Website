@@ -34,36 +34,24 @@
         <h1 ALIGN="CENTER"> empty list of stock </h1>
        {% endif %}
     
+       <section style="position: absolute;">
+         <details>
+            <summary>Add stock</summary>
+            <div class="content">
+               <ul>
+                  <form name = "StockData" action="liveStocks" method = 'post' onsubmit="return validateForm()">
+                  <input type="text" name = "symbol" placeholder="Symbol: AAPL"><br>
+                  <input type="text" name = "contry" placeholder="Contry: America"><br>
+                  <input type="text" name = "exchange" placeholder="Exchange: NASDAQ"><br>
+                  {% csrf_token %}
+                  <button type="submit" class="btn-ido" >Add</button>
+               </ul>
+            </div>
+         </details>
+      </section>
 
 
-
-   <script type="text/javascript">
-         function validateForm() {
-             var c = document.getElementsByName('exchange').value;
-             var a = document.getElementByName('symbol').value;
-             var b = document.getElementByName("contry").value;
-             if (a == null || a==""|| b == null || b == ""|| c == null || c == "") {
-                 alert("Please Fill All Required Field");
-                 return false;
-             }
-             return true;
-       }
-   </script>
-   <section style="position: absolute;">
-      <details>
-         <summary>Add stock</summary>
-         <div class="content">
-            <ul>
-               <form name = "StockData" action="liveStocks" method = 'post' onsubmit="return validateForm()">
-               <input type="text" name = "symbol" placeholder="Symbol: AAPL"><br>
-               <input type="text" name = "contry" placeholder="Contry: America"><br>
-               <input type="text" name = "exchange" placeholder="Exchange: NASDAQ"><br>
-               {% csrf_token %}
-               <button type="submit" class="btn-ido" >Add</button>
-            </ul>
-         </div>
-      </details>
-   </section>
+   
 
    
 

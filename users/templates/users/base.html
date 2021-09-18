@@ -68,7 +68,25 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a href="{% url 'home' %}" class="btn-ido" type="submit" id="header-links"><b>Home</b></a>
-
+              <b>  
+                <section style="position: absolute;">
+                  <details>
+                    <summary style="border-radius: 20px;">search</summary>
+                    <div>
+                    <ul>
+                      <body>
+                        <form action="search" method = 'get'>
+                            Symbol : <input type="text" name = "symbol" placeholder="Symbol: AAPL"><br>
+                            Exchange : <input type="text" name = "exchange" placeholder="Exchange: NASDAQ"><br>
+                          
+                            <button input type="submit"  class="btn-ido" id="header-links">search</button>
+                        </form>
+                      </body>
+                    </ul>
+                    </div>
+                  </details>
+                </section>
+              </b>
             </div>
             <form class="d-flex" id="authstyle" style="position: absolute;right: 300px;">
               {% if user.is_authenticated %}

@@ -5,81 +5,61 @@
 <html>
 <title>{{symbol}}:{{exchange}}</title>
 
-	<body>
-		<form action="search" method = 'get'>
-				<h1>Symbol : <input type="text" name = "symbol"><br></h1>
-				<h1>Exchange : <input type="text" name = "exchange"><br></h1>
-			
-				<input type="submit"  class="btn-ido" id="header-links">
-		</form>
-	</body>
 
 
-<div class="container" style="width: 100%;
-	height: 100px;">
 
-<div class="rightpanel">
+<div>
 	<div class="tradingview-widget-container">
 		<div class="tradingview-widget-container__widget"></div>
-		<div class="tradingview-widget-copyright">‎<a href="https://il.tradingview.com/symbols/NASDAQ-AAPL/technicals/" rel="noopener" target="_blank">‎‎<span class="blue-text">‎ ניתוחים טכניים עבור ‎AAPL‎‎</span>‎‎</a>‎ מאת TradingView</div>
-		<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-		{
-		"interval": "1m",
-		"width": 425,
-		"isTransparent": false,
-		"height": 450,
-		"symbol": "NASDAQ:AAPL",
-		"locale": "he_IL",
-		"colorTheme": "light"
-	  }
-		</script>
+			<div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/{{ exchange }}-{{ symbol }}/" rel="noopener" target="_blank"></div>
+				<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
+				{
+				"symbol":"{{ exchange }}:{{ symbol }}",
+				"width": "100%",
+				"locale": "en",
+				"colorTheme": "light",
+				"isTransparent": true
+				}
+				</script>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div class="middlepanel">
-	  <div class="tradingview-widget-container">
-		<div id="tradingview_8abda"></div>
+
+
+
+<div class="tradingview-widget-container">
+	<div id="tradingview_8abda"></div>
 		<div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BABA/" rel="noopener" target="_blank"></div>
-		<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-		<script type="text/javascript">
-		var a = document.getElementById("symbol")
-		var b = document.getElementById("exchange")
-		new TradingView.widget(
-		{
-		a : b,
-		"interval": "1",
-		"timezone": "Etc/UTC",
-		"theme": "light",
-		"style": "1",
-		"locale": "en",
-		"toolbar_bg": "#f1f3f6",
-		"enable_publishing": false,
-		"hide_top_toolbar": true,
-		"hide_legend": true,
-		"save_image": false,
-		"container_id": "tradingview_8abda"
-	}
-		);
-		</script>
+			<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+			<script type="text/javascript">
+			var a = document.getElementById("symbol")
+			var b = document.getElementById("exchange")
+			new TradingView.widget(
+			{
+			"width":980,
+			"height":610,
+			a : b,
+			"interval": "1",
+			"timezone": "Etc/UTC",
+			"theme": "light",
+			"style": "1",
+			"locale": "en",
+			"toolbar_bg": "#f1f3f6",
+			"enable_publishing": false,
+			"hide_top_toolbar": true,
+			"hide_legend": true,
+			"save_image": false,
+			"container_id": "tradingview_8abda"
+			}
+			);
+			</script>
+		</div>
 	</div>
-</div>
+</div>>
 
-<div class="toppanel">
-	<div class="tradingview-widget-container">
-		<div class="tradingview-widget-container__widget"></div>
-		<div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/{{ exchange }}-{{ symbol }}/" rel="noopener" target="_blank"></div>
-		<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-		{
-		"symbol":"{{ exchange }}:{{ symbol }}",
-		"width": "100%",
-		"locale": "en",
-		"colorTheme": "light",
-		"isTransparent": true
-		}
-		</script>
-	</div>
-</div>
 
-</div>
 
 {% endblock content %}
 
