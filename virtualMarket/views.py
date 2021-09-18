@@ -92,8 +92,8 @@ def newProtfolio(request):
 def buyStock(request, protfolio):
     #check evreything ok
     buyPrice = -1
-    if request.POST['buyPrice']!='':
-        buyPrice = float(request.POST["buyPrice"])
+    if request.POST['price']!='':
+        buyPrice = float(request.POST["price"])
     s = StockTrade(symbol = str(request.POST["symbol"].upper()),
                    screener = str(request.POST["screener"]),
                    exchange = str(request.POST["exchange"]),
@@ -108,13 +108,12 @@ def buyStock(request, protfolio):
 
 def soldStock(request, protfolio):
     soldPrice = -1
-    if request.POST['soldPrice']!='':
-        soldPrice = float(request.POST["soldPrice"])
+    if request.POST['price']!='':
+        soldPrice = float(request.POST["price"])
     s = StockTrade(symbol = str(request.POST["symbol"]),
                    screener = str(request.POST["screener"]),
                    exchange = str(request.POST["exchange"]),
-                   amount = int(request.POST["amount"]),
+                   amount = int(request.POST["amount"])
                    )
-    if not protfolio.removeStock(stock = s,price = soldPrice ):
+    if not protfolio.removeStock(stock = s,price = soldPrice):
         messages.info(request, 'Some of the details is wrong!')
-    protfolio.save()

@@ -54,7 +54,7 @@ class StocksProtfolio(models.Model):
         if stock.buyPrice<=0:
             data = get_data(stock.symbol, stock.screener, stock.exchange, ["close"], '1d')
             if stock.amount<=0 or data == {}:
-                return
+                return False
             stock.buyPrice = data['close']
 
         stock.buyPrice = stock.buyPrice*stock.amount
@@ -66,25 +66,41 @@ class StocksProtfolio(models.Model):
 
         ls = json.loads(self.listOfStock)
         stock.symbol = stock.symbol.upper()
+        stock.screener = stock.screener.upper()
+        stock.exchange = stock.exchange.upper()
+        for st in ls:
+            if st['symbol']==stock.symbol and st['screener']==stock.screener and st['exchange']==stock.exchange:
+                price1 = st['buyPrice']
+                price2 = stock.buyPrice*stock.amount
+                per1 = price1*100/(price1+price2)
+                per2 = price2*100/(price1+price2)
+                st['amount']+=stock.amount
+                st['buyPrice'] = ((price1*per1/100)+(price2*per2/100))*st['amount']
+                self.listOfStock = json.dumps(ls)
+                self.refreshData()
+                return True
+            
         ls.append(stock.toJson())
         self.listOfStock = json.dumps(ls)
 
         self.refreshData()
         return True
 
-    def removeStock(self, stock, price=-1):
+    def removeStock(self, stock, price):
         if price<=0:
             data = get_data(stock.symbol, stock.screener, stock.exchange, ["close"], '1d')
-            if stock.amount<=0 or data == {}:
+            if data == {}:
+                print("data == {}")
                 return False
             price = data['close']
         if stock.amount<=0:
+            print("stock.amount<=0")
             return False
         
         ls = json.loads(self.listOfStock)
 
         for st in ls:
-            if st["symbol"]==stock.symbol and st["screener"]==stock.screener and st["exchange"]==stock.exchange:
+            if st["symbol"]==stock.symbol.upper() and st["screener"]==stock.screener.upper() and st["exchange"]==stock.exchange.upper():
                 if stock.amount> st["amount"]:
                    stock.amount = st["amount"]#SOLD all the stocks
                 st["amount"]-=stock.amount
@@ -92,6 +108,7 @@ class StocksProtfolio(models.Model):
                 self.sum=self.sum + price
                 if st["amount"]==0:
                     ls.remove(st)
+
                 self.listOfStock = json.dumps(ls)
                 self.refreshData()
                 return True

@@ -41,58 +41,40 @@
          {% endif %}
       </section>
 
-       <script type="text/javascript">
-            function colorValue(a){
-               if(a<0)
-                  return 'red';
-               if(a>0)
-                  return 'green';
-               return 'black';
-            }
+      <script type="text/javascript">
             function validateForm() {
-                var e = document.forms["StockData"]["act"].value;
-                var a = document.forms["StockData"]["symbol"].value;
-                var b = document.forms["StockData"]["screener"].value;
-                var c = document.forms["StockData"]["exchange"].value;
-                var d = document.forms["StockData"]["amount"].value;
-
-                if(strcmp(e,"DELETE")==0){
-                    return true;
-                }
-                    
-
-                if (a == null || a == "", b == null || b == "", c == null || c == "", d == null || d == "") {
+                var e = document.getElementsByName('act').value;
+                var a = document.getElementById('symbol').value;
+                var b = document.getElementById("screener").value;
+                var c = document.getElementById("exchange").value;
+                var d = document.getElementById("amount").value; 
+                if (a == null || a==""|| b == null || b == ""|| c == null || c == ""|| d == null || d == "") {
                     alert("Please Fill All Required Field");
                     return false;
                 }
+                return true;
           }
-
-
-         </script>
-      <section style="position: absolute;">
-         <details>
-            <summary>BUY/SOLD</summary>
-            <div class="content">
-            <p>
+      </script>
+   <section style="position: absolute;">
+      <details>
+         <summary>BUY/SOLD</summary>
+         <div class="content">
             <ul>
             <form name = "StockData" action="protfolio" method = 'post' onsubmit="return validateForm()">
-
-         <h1>Enter symbol : <input type="text" name = "symbol" placeholder="AAPL"><br></h1>
-         <h1>Enter contry : <input type="text" name = "screener" placeholder="America"><br></h1>
-         <h1>Enter exchange : <input type="text" name = "exchange" placeholder="NASDAQ"><br></h1>
-         <h1>Enter amount : <input type="text" name = "amount"><br></h1>
-         <h1>Enter Buy Price : <input type="text" name = "buyPrice" placeholder="NONE for Real Time"><br></h1>
-         <h1>Enter Sold Price : <input type="text" name = "soldPrice" placeholder="NONE for Real Time"><br></h1>
-         <input type="hidden" value={{ id }} name = "id">
-         {% csrf_token %}
-         <button input type="submit"  value="BUY" name="act" class="btn-ido" id="buy">BUY</button>
-         <button input type="submit"  value="SOLD" name="act" class="btn-ido" id="sold">SOLD</button>
-            </p>
+               <input type="text" id="symbol" name = "symbol" placeholder="Symbol: AAPL"><br>
+               <input type="text" id = "screener"name = "screener" placeholder="Contry: America"><br>
+               <input type="text" id = "exchange"name = "exchange" placeholder="exchange: NASDAQ"><br>
+               <input type="text" id = "amount"name = "amount" placeholder="Amount: "><br>
+               <input type="text" id = "price"name = "price" placeholder="Price: NONE for Real Time"><br>
+               <input type="hidden" value={{ id }} name = "id">
+               {% csrf_token %}
+               <button input type="submit"  value="BUY" name="act" class="btn-ido" id="buy">BUY</button>
+               <button input type="submit"  value="SOLD" name="act" class="btn-ido" id="sold">SOLD</button>
             </ul>
          </div>
-         </details>
+      </details>
          <button ssinput type="submit" style="position:absolute" value="DELETE" name="act"  class="btn-ido" id="sold" onclick="return confirm('Are you sure you want to delete this item?');">Delete Protfolio</button>
-      </section>
+   </section>
 
     
 {% endblock content %}

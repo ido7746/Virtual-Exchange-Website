@@ -38,33 +38,32 @@
 
 
    <script type="text/javascript">
-      function validateForm() {
-            var a = document.forms["StockData"]["symbol"].value;
-            var b = document.forms["StockData"]["contry"].value;
-            var c = document.forms["StockData"]["exchange"].value;
-   
-            if (a == null || a == "", b == null || b == "", c == null || c == "", d == null || d == "") {
-               alert("Please Fill All Required Field");
-               return false;
-            }
-      }
+         function validateForm() {
+             var c = document.getElementsByName('exchange').value;
+             var a = document.getElementByName('symbol').value;
+             var b = document.getElementByName("contry").value;
+             if (a == null || a==""|| b == null || b == ""|| c == null || c == "") {
+                 alert("Please Fill All Required Field");
+                 return false;
+             }
+             return true;
+       }
    </script>
-   <details>
-      <summary>Add stock</summary>
-      <div class="content">
-         <p>
-         <ul>
-            <form name = "StockData" action="liveStocks" method = 'post' onsubmit="return validateForm()">
-            
-            <h1>Enter symbol : <input type="text" name = "symbol" placeholder="AAPL"><br></h1>
-            <h1>Enter contry : <input type="text" name = "contry" placeholder="America"><br></h1>
-            <h1>Enter exchange : <input type="text" name = "exchange" placeholder="NASDAQ"><br></h1>
-            {% csrf_token %}
-            <button type="submit" class="btn-ido" >Add</button>
-         </p>
-         </ul>
-      </div>
-   </details>
+   <section style="position: absolute;">
+      <details>
+         <summary>Add stock</summary>
+         <div class="content">
+            <ul>
+               <form name = "StockData" action="liveStocks" method = 'post' onsubmit="return validateForm()">
+               <input type="text" name = "symbol" placeholder="Symbol: AAPL"><br>
+               <input type="text" name = "contry" placeholder="Contry: America"><br>
+               <input type="text" name = "exchange" placeholder="Exchange: NASDAQ"><br>
+               {% csrf_token %}
+               <button type="submit" class="btn-ido" >Add</button>
+            </ul>
+         </div>
+      </details>
+   </section>
 
    
 
