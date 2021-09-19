@@ -3,10 +3,9 @@
 {% block content %}
 <!DOCTYPE html>
 <html>
+
+{% if symbol %}
 <title>{{symbol}}:{{exchange}}</title>
-
-
-
 
 <div>
 	<div class="tradingview-widget-container">
@@ -26,9 +25,6 @@
 	</div>
 </div>
 
-
-
-
 <div class="tradingview-widget-container">
 	<div id="tradingview_8abda"></div>
 		<div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BABA/" rel="noopener" target="_blank"></div>
@@ -44,7 +40,7 @@
 			"interval": "1",
 			"timezone": "Etc/UTC",
 			"theme": "light",
-			"style": "1",
+			"style": "3",
 			"locale": "en",
 			"toolbar_bg": "#f1f3f6",
 			"enable_publishing": false,
@@ -58,6 +54,10 @@
 		</div>
 	</div>
 </div>>
+{% else %}
+<title>Search</title>
+<h1 ALIGN="CENTER">Enter Symbol!</h1>
+{% endif %}
 
 
 

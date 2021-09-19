@@ -6,20 +6,14 @@
 <html>
 {% block content %}
 
-
-<h1>creatProtfolio</h1>
-
-<form action="protfolio" method = 'post'>
-{% csrf_token %}
-	<h1>Name of the new protfolio : <input type="text" name = "name"><br></h1>
-	<h1>The begin value ($) : <input type="text" name = "sum"><br></h1>
-
-	<input type="submit"  class="btn-ido" id="header-links">
-
-
-</form>
-
-
+	<section style="position: absolute;">
+		<form action="protfolio" method = 'post'>
+		{% csrf_token %}
+			 <input type="text" name = "name" placeholder="Name"><br>
+			 <input type="text" name = "sum" placeholder="Money ($)"><br>
+			<button input type="submit"  class="btn-ido" id="header-links">Create</button>
+		</form>
+	</section>
 {% endblock content %}
 
    
