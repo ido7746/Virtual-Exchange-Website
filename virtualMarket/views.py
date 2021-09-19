@@ -66,7 +66,7 @@ def protfolio(request):
     protfolio.refreshData()
     context = {}
     context["name"] = protfolio.name
-    context["sum"] = protfolio.sum
+    context["sum"] = float("{:.2f}".format(protfolio.sum))
     context["stocks"] = protfolio.getStocksList()
     context["value"] = protfolio.value
     context["changePer"] = protfolio.changePer
@@ -90,7 +90,11 @@ def newProtfolio(request):
     return newPro.id
 
 def buyStock(request, protfolio):
-    #check evreything ok
+    try:
+        int(request.POST["amount"])
+    except:
+        messages.info(request, 'Please enter amount')
+        return False
     buyPrice = -1
     if request.POST['price']!='':
         buyPrice = float(request.POST["price"])
@@ -102,8 +106,8 @@ def buyStock(request, protfolio):
                    profit = 0
                    )
 
-    if not protfolio.addStock(s):
-        messages.info(request, 'You need more money to buy this stock!')
+    if not protfolio.addStock(s, request):
+        return False
     protfolio.save()
 
 def soldStock(request, protfolio):

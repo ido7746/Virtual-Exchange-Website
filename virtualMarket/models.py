@@ -6,6 +6,7 @@ import json
 from myFirstApp.stocks import get_data
 import datetime
 from myFirstApp.models import Stock
+from django.contrib import messages
 
 
 
@@ -50,16 +51,18 @@ class StocksProtfolio(models.Model):
 
 
 
-    def addStock(self, stock):#amount: number of stocks to buy
+    def addStock(self, stock, request):#amount: number of stocks to buy
+        data = get_data(stock.symbol, stock.screener, stock.exchange, ["close"], '1d')
+        if stock.amount<=0 or data == {}:
+            messages.info(request, 'Not find this stock')
+            return False
         if stock.buyPrice<=0:
-            data = get_data(stock.symbol, stock.screener, stock.exchange, ["close"], '1d')
-            if stock.amount<=0 or data == {}:
-                return False
             stock.buyPrice = data['close']
 
         stock.buyPrice = stock.buyPrice*stock.amount
 
         if stock.buyPrice>self.sum:#dont have money for that
+            messages.info(request, 'You need more money to buy this stock!')
             return False
 
         self.sum-=stock.buyPrice
