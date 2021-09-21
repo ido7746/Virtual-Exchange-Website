@@ -29,3 +29,6 @@ def logout(request):
 
 def profile(request):
     return render(request, 'users/profile.html')
+
+def info(request):
+    return render(request, 'users/info.html')
