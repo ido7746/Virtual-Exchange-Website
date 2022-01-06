@@ -7,8 +7,10 @@ User identities managed in a sqlite3 database with custom credential for each us
 
 ## Run instructions:
 1. Create python environment using ```requeariements.txt```
-    ```python create ... ```
-2. Run main webstie:
+    ```python manage.py runserver 127.0.0.1:8000 ```
+    ```go to 127.0.0.1:8000 in the browser ```
+username = test1
+password = Testing321!
 
 
 
