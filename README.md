@@ -6,12 +6,14 @@ This project writen in python using Django library and pulls market information 
 User identities managed in a sqlite3 database with custom credential for each user.
 
 ## Run instructions
-Create python environment using requeariements.txt
- ```python manage.py runserver 127.0.0.1:8000 ```
- Go to 127.0.0.1:8000 in the browser
+- Create python environment using requeariements.txt
+ ```
+ python manage.py runserver 127.0.0.1:8000
+  ```
+ - Go to `127.0.0.1:8000` in the browser
 
 # login
-Username = test2
-Password = Testing321!
+* Username: `test2`
+* Password: `Testing321!`
 
 
